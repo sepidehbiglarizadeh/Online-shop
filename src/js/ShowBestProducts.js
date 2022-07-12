@@ -1,4 +1,5 @@
 import { bestProductsData } from "/ProductsData/bestProducts.js";
+// import mainPage from "../../client/pages/mainpage.js";
 
 const bestProductsContainer = document.querySelector(".best-products_wrapper");
 const scrollBtns = [...document.querySelectorAll(".scroll")];
