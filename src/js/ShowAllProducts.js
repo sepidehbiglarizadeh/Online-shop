@@ -1,10 +1,12 @@
 import { allProductsData } from "/ProductsData/allProductsData.js";
 import Storage from "./Storage.js";
+// import Cart from "./Cart.js";
 
 class ShowAllProducts {
-  constructor() {
-    document.addEventListener("click", (e) => this.showSortAndFilterItems(e));
-  }
+  // constructor() {
+
+  //   document.addEventListener("click", (e) => this.showSortAndFilterItems(e));
+  // }
 
   getAllProducts() {
     return allProductsData;
@@ -14,23 +16,27 @@ class ShowAllProducts {
     const womenProductsContainer = document.querySelector(".products-section");
     let result = "";
     products.forEach((item) => {
-      result += `<div class="product" data-id=${item.id}>
-          <img src= ${item.imageUrl} />
-          <div class="product-gender">
-            <span>${item.gender}</span>
-            <div class="product-stars">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-            </div>
+      result += `
+        <a class="data-product" href="/singleProduct">
+        <div class="product" data-id=${item.id}>
+        <img src= ${item.imageUrl} />
+        <div class="product-gender">
+          <span>${item.gender}</span>
+          <div class="product-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
           </div>
-          <p class="product_title">${item.title}</p>
-          <div class="product-price_wrapper">
-            <span class="product-price">$${item.price}</span>
-          </div>
-        </div>`;
+        </div>
+        <p class="product_title">${item.title}</p>
+        <div class="product-price_wrapper">
+          <span class="product-price">$${item.price}</span>
+        </div>
+      </div>
+        </a>
+      `;
       womenProductsContainer.innerHTML = result;
     });
   }
@@ -43,6 +49,8 @@ class ShowAllProducts {
     Storage.saveProducts(womenProducts);
     this.getSingleProduct();
     // sort women products
+    const navSort= document.querySelector(".products-nav_sort");
+    navSort.addEventListener("click",(e)=>this.showSortAndFilterItems(e));
     const sortItems = document.querySelector(".sort-items");
     sortItems.addEventListener("click", (e) =>
       this.sortProducts(e, womenProducts)
@@ -61,6 +69,7 @@ class ShowAllProducts {
         this.productsContent(filteredProducts);
         Storage.saveProducts(filteredProducts);
         this.getSingleProduct();
+        allProductsNum.innerText= filteredProducts.length;
       });
     });
     this.showGrid();
@@ -92,6 +101,7 @@ class ShowAllProducts {
         this.productsContent(filteredProducts);
         Storage.saveProducts(filteredProducts);
         this.getSingleProduct();
+        allProductsNum.innerText= filteredProducts.length;
       });
     });
     this.showGrid();

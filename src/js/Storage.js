@@ -5,7 +5,7 @@ export default class Storage {
     }
     static getProduct(id) {
       const _products = JSON.parse(localStorage.getItem("products"));
-      return _products.find((p) => p.id == id);
+      return _products.find((p) => parseInt(p.id) === parseInt(id));
     }
     static saveCart(cart) {
       localStorage.setItem("cart", JSON.stringify(cart));
