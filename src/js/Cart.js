@@ -16,8 +16,53 @@ class Cart {
     cartArea.addEventListener("click", (event) => {
       const element = event.target;
       if (element.classList.contains("cart-close-btn")) this.closeCart();
-      if (element.classList.contains("fa-chevron-up"))
+      if (element.classList.contains("total-chevron-up"))
         this.showPricesDetails(element);
+    });
+    this.setupApp();
+  }
+
+  getAddToCartBtns() {
+    const addToCartBtn = document.querySelector(".add-to-cart");
+    const radioBtnsSize = document.querySelectorAll("input[name=size]");
+    const id = addToCartBtn.dataset.id;
+    const isInCart = cart.find((p) => p.id == id);
+    if (isInCart) {
+      addToCartBtn.innerText = "In Cart";
+      addToCartBtn.disabled = true;
+      addToCartBtn.style.opacity = 0.5;
+    }
+
+    addToCartBtn.disabled = true;
+    addToCartBtn.style.opacity = 0.5;
+
+    radioBtnsSize.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        addToCartBtn.disabled = false;
+        addToCartBtn.style.opacity = 1;
+      });
+    });
+
+    addToCartBtn.addEventListener("click", (event) => {
+      event.target.innerText = "In Cart";
+      event.target.disabled = true;
+      event.target.style.opacity = 0.5;
+      let selectedSize = "";
+      radioBtnsSize.forEach((btn) => {
+        if (btn.checked) {
+          selectedSize = btn.value;
+          localStorage.setItem("selectedSize", selectedSize);
+        }
+      });
+      const addedProduct = {
+        ...JSON.parse(localStorage.getItem("products")),
+        selectedradio: selectedSize,
+        quantity: 1,
+      };
+      cart = [...cart, addedProduct];
+      Storage.saveCart(cart);
+      this.setCartValue(cart);
+      this.addCartItem(addedProduct);
     });
   }
 
@@ -129,19 +174,27 @@ class Cart {
       } else if (event.target.classList.contains("fa-trash-can")) {
         const removeItem = event.target;
         const _removedItem = cart.find((c) => c.id == removeItem.dataset.id);
-        this.removeItem(_removedItem.id);
+        this.removeItem(_removedItem);
         Storage.saveCart(cart);
-        cartContent.removeChild(
-          removeItem.parentElement.parentElement.parentElement
-        );
+        const node = removeItem.parentNode.parentNode.parentNode;
+        cartContent.removeChild(node);
       }
     });
   }
-  
-  removeItem(id) {
-    cart = cart.filter((item) => item.id !== id);
+
+  removeItem(product) {
+    cart = cart.filter((item) => parseInt(item.id) !== product.id);
     this.setCartValue(cart);
     Storage.saveCart(cart);
+    const addToCartBtn = document.querySelector(".add-to-cart");
+    if(addToCartBtn) this.getButton();
+  }
+
+  getButton() {
+    const addToCartBtn = document.querySelector(".add-to-cart");
+    addToCartBtn.innerText = "Add To Cart";
+    addToCartBtn.disabled = false;
+    addToCartBtn.style.opacity = 1;
   }
 }
 

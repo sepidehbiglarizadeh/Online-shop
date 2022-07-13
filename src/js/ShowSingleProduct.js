@@ -1,5 +1,7 @@
-
 import singleProduct from "/client/pages/singleProduct.js";
+import Cart from "/src/js/Cart.js";
+
+let slideIndex = 1;
 
 export default class ShowSingleProduct {
   constructor() {
@@ -9,14 +11,27 @@ export default class ShowSingleProduct {
         event.preventDefault();
         this.navigateTo(item.href);
         this.showProduct();
+        const circleArea = document.querySelector(".single-product_circles");
+        circleArea.addEventListener("click", (event) => {
+          const element = event.target;
+          if (element.classList.contains("next")) this.plusSlides(1);
+          if (element.classList.contains("prev")) this.plusSlides(-1);
+        });
+        const dots = document.querySelectorAll(".dot");
+        dots.forEach((item) => {
+          item.addEventListener("click", () => {
+            this.currentSlides(item.dataset.id);
+          });
+        });
+        // Cart.setupApp();
+        Cart.getAddToCartBtns();
+        // Cart.cartLogic();
       });
     });
   }
 
-  router(product) {
-    const routes = [
-      { path: "/singleProduct", view: singleProduct },
-    ];
+  router() {
+    const routes = [{ path: "/singleProduct", view: singleProduct }];
     const potentialRoutes = routes.map((item) => {
       return {
         route: item,
@@ -147,5 +162,26 @@ export default class ShowSingleProduct {
     </div>
   </section>`;
     singleProductContainer.innerHTML = result;
+  }
+
+  showSlides(n) {
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".dot");
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace("active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].classList.toggle("active");
+  }
+
+  plusSlides(n) {
+    this.showSlides((slideIndex += n));
+  }
+
+  currentSlides(n) {
+    this.showSlides((slideIndex = n));
   }
 }

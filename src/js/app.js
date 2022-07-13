@@ -3,6 +3,7 @@ import menProducts from "../../client/pages/menProducts.js";
 import singleProduct from "/client/pages/singleProduct.js";
 import ShowAllProducts from "./ShowAllProducts.js";
 import ShowSingleProduct from "./ShowSingleProduct.js";
+import Cart from "./Cart.js";
 
 class App {
   constructor() {
@@ -33,11 +34,12 @@ class App {
     if (match.route.path === "/womenProducts"){
       ShowAllProducts.displayWomenProducts();
       const showSingleProduct= new ShowSingleProduct();
-    }
-      
+    }   
 
-    if (match.route.path === "/menProducts")
+    if (match.route.path === "/menProducts"){
       ShowAllProducts.displayMenProducts();
+      const showSingleProduct= new ShowSingleProduct();
+    }
   }
 
     

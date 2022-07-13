@@ -1,6 +1,5 @@
 import { allProductsData } from "/ProductsData/allProductsData.js";
 import Storage from "./Storage.js";
-// import Cart from "./Cart.js";
 
 class ShowAllProducts {
   // constructor() {
