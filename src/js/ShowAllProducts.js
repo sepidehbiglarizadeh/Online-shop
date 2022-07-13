@@ -2,11 +2,6 @@ import { allProductsData } from "/ProductsData/allProductsData.js";
 import Storage from "./Storage.js";
 
 class ShowAllProducts {
-  // constructor() {
-
-  //   document.addEventListener("click", (e) => this.showSortAndFilterItems(e));
-  // }
-
   getAllProducts() {
     return allProductsData;
   }
@@ -48,8 +43,8 @@ class ShowAllProducts {
     Storage.saveProducts(womenProducts);
     this.getSingleProduct();
     // sort women products
-    const navSort= document.querySelector(".products-nav_sort");
-    navSort.addEventListener("click",(e)=>this.showSortAndFilterItems(e));
+    const navSort = document.querySelector(".products-nav_sort");
+    navSort.addEventListener("click", (e) => this.showSortAndFilterItems(e));
     const sortItems = document.querySelector(".sort-items");
     sortItems.addEventListener("click", (e) =>
       this.sortProducts(e, womenProducts)
@@ -58,6 +53,9 @@ class ShowAllProducts {
     const allProductsNum = document.querySelector(".p-number");
     allProductsNum.innerText = womenProducts.length;
     // filter products
+    document
+      .querySelector(".products-nav_filter")
+      .addEventListener("click", (e) => this.showSortAndFilterItems(e));
     const filters = document.querySelectorAll(".filter-item");
     filters.forEach((item) => {
       item.addEventListener("click", (e) => {
@@ -68,7 +66,7 @@ class ShowAllProducts {
         this.productsContent(filteredProducts);
         Storage.saveProducts(filteredProducts);
         this.getSingleProduct();
-        allProductsNum.innerText= filteredProducts.length;
+        allProductsNum.innerText = filteredProducts.length;
       });
     });
     this.showGrid();
@@ -90,6 +88,9 @@ class ShowAllProducts {
     const allProductsNum = document.querySelector(".p-number");
     allProductsNum.innerText = menProducts.length;
     // filter products
+    document
+      .querySelector(".products-nav_filter")
+      .addEventListener("click", (e) => this.showSortAndFilterItems(e));
     const filters = document.querySelectorAll(".filter-item");
     filters.forEach((item) => {
       item.addEventListener("click", (e) => {
@@ -100,7 +101,7 @@ class ShowAllProducts {
         this.productsContent(filteredProducts);
         Storage.saveProducts(filteredProducts);
         this.getSingleProduct();
-        allProductsNum.innerText= filteredProducts.length;
+        allProductsNum.innerText = filteredProducts.length;
       });
     });
     this.showGrid();
