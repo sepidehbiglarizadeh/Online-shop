@@ -3,7 +3,7 @@ const menuBtn = document.querySelector(".menu");
 const menu = document.querySelector(".navbar-menu");
 const closeMenuBtn = document.querySelector(".close");
 const body = document.querySelector("body:not(.navbar-menu)");
-
+const navbarItem = document.querySelectorAll(".navbar-item");
 
 class Menu {
   constructor() {
@@ -16,6 +16,8 @@ class Menu {
     // Mobile Menu
     menuBtn.addEventListener("click", this.showMenu);
     closeMenuBtn.addEventListener("click", this.closeMenu);
+    
+    
   }
 
   showMenu() {

@@ -23,9 +23,7 @@ export default class ShowSingleProduct {
             this.currentSlides(item.dataset.id);
           });
         });
-        // Cart.setupApp();
         Cart.getAddToCartBtns();
-        // Cart.cartLogic();
       });
     });
   }

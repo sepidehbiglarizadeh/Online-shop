@@ -1,20 +1,31 @@
-import { bestProductsData } from "/ProductsData/bestProducts.js";
-// import mainPage from "../../client/pages/mainpage.js";
+import { allProductsData } from "/ProductsData/allProductsData.js";
+import Storage from "./Storage.js";
+import ShowSingleProduct from "./ShowSingleProduct.js";
 
 const bestProductsContainer = document.querySelector(".best-products_wrapper");
 const scrollBtns = [...document.querySelectorAll(".scroll")];
 
 class ShowBestProducts {
   constructor() {
-    const bestProducts = this.getBestProducts();
+    const bestProducts = this.getAllProducts().filter(
+      (p) => p.score === "best"
+    );
     this.displayBestProducts(bestProducts);
+    Storage.saveProducts(bestProducts);
+    const products= document.querySelectorAll(".data-product");
+    products.forEach((p)=>{
+      p.addEventListener("click",(e)=>{
+        e.preventDefault();
+        this.getSingleProduct();
+        const showSingleProduct= new ShowSingleProduct();
+      });
+    });
 
     scrollBtns.forEach((btn) => {
       btn.addEventListener("click", (event) => {
         const button = event.target;
         if (button.classList.contains("right")) {
           bestProductsContainer.scrollLeft += 200;
-          console.log("button");
         } else {
           bestProductsContainer.scrollLeft -= 200;
         }
@@ -22,33 +33,47 @@ class ShowBestProducts {
     });
   }
 
-  getBestProducts() {
-    return bestProductsData;
+  getAllProducts() {
+    return allProductsData;
   }
 
   displayBestProducts(products) {
     let result = "";
     products.forEach((item) => {
-      result += `<div class="product">
-      <img src=${item.imageUrl}>
-      <div class="product-gender">
-        <span>${item.gender}</span>
-        <div class="product-stars">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
+      result += `
+      <a class="data-product" href="/singleProduct" data-id=${item.id}>
+        <div class="product">
+        <img src=${item.imageUrl}>
+        <div class="product-gender">
+          <span>${item.gender}</span>
+          <div class="product-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+        </div>
+        <p class="product_title">${item.title}</p>
+        <div class="product-price_wrapper">
+          <span class="product-price">$${item.price}</span>
         </div>
       </div>
-      <p class="product_title">${item.title}</p>
-      <div class="product-price_wrapper">
-        <span class="product-price">$${item.discount}</span>
-        <span class="product-discount">$${item.price}</span>
-      </div>
-    </div>`;
+      </a>
+      `;
       bestProductsContainer.innerHTML = result;
     });
+  }
+  getSingleProduct() {
+    const allProducts = document.querySelectorAll(".data-product");
+    allProducts.forEach((item) => {
+      const id = item.dataset.id;
+      item.addEventListener("click", () => {
+        const singleProduct = Storage.getProduct(id);
+        Storage.saveProducts(singleProduct);
+      });
+    });
+  
   }
 }
 

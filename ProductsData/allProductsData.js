@@ -9,6 +9,7 @@ export const allProductsData = [
       title: "College cotton jacket",
       price: 35.99,
       type: "jacket",
+      score: "best",
     },
     {
       id: 2,
@@ -20,6 +21,7 @@ export const allProductsData = [
       title: "Varsity jacket",
       price: 49.99,
       type: "jacket",
+      score: "best",
     },
     {
       id: 3,
@@ -107,7 +109,8 @@ export const allProductsData = [
       gender: "Men",
       title: "Printed nylon racing jacket",
       price: 75,
-      type: "jacket"
+      type: "jacket",
+      score: "best",
     },
     {
       id: 11,
@@ -118,7 +121,8 @@ export const allProductsData = [
       gender: "Men",
       title: "Cotton cargo joggers",
       price: 230,
-      type: "trousers"
+      type: "trousers",
+      score: "best",
     },
     {
       id: 12,
@@ -129,7 +133,8 @@ export const allProductsData = [
       gender: "Men",
       title: "Varsity denim jacket",
       price: 230,
-      type: "jacket"
+      type: "jacket",
+      score: "best",
     },
     {
       id: 13,
