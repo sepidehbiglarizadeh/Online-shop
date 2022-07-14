@@ -14,22 +14,23 @@ class Menu {
     });
 
     // Mobile Menu
-    menuBtn.addEventListener("click", this.showMenu);
-    closeMenuBtn.addEventListener("click", this.closeMenu);
-    
-    
-  }
+    menuBtn.addEventListener("click", () => {
+      menu.classList.add("show-menu");
+      body.style.position = "fixed";
+    });
+    closeMenuBtn.addEventListener("click", () => {
+      menu.classList.remove("show-menu");
+      body.style.position = "static";
+    });
 
-  showMenu() {
-    menu.style.opacity = "1";
-    menu.style.left = "0";
-    body.style.position = "fixed";
-  }
-
-  closeMenu() {
-    menu.style.opacity = "0";
-    menu.style.left = "-100vw";
-    body.style.position = "static";
+    navbarItem.forEach((item) => {
+      item.addEventListener("click", () => {
+        if (menu.classList.contains("show-menu")) {
+          menu.classList.remove("show-menu");
+          body.style.position = "static";
+        }
+      });
+    });
   }
 }
 

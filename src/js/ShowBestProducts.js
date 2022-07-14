@@ -41,7 +41,7 @@ class ShowBestProducts {
     let result = "";
     products.forEach((item) => {
       result += `
-      <a class="data-product" href="/singleProduct" data-id=${item.id}>
+      <a class="data-product best-product" href="/singleProduct" data-id=${item.id}>
         <div class="product">
         <img src=${item.imageUrl}>
         <div class="product-gender">
