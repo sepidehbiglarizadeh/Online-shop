@@ -250,11 +250,6 @@ a {
   left: 0;
 }
 
-.close-menu{
-  opacity: 0;
-  left: -100vw;
-}
-
 @media screen and (min-width: 1024px) {
   .navbar {
     padding: 1rem 2.3rem;

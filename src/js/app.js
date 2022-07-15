@@ -30,12 +30,12 @@ class App {
     if (match) document.querySelector(".main").innerHTML = match.route.view();
     if (match.route.path === "/womenProducts") {
       ShowAllProducts.displayWomenProducts();
-      const showSingleProduct = new ShowSingleProduct();
+      new ShowSingleProduct();
     }
 
     if (match.route.path === "/menProducts") {
       ShowAllProducts.displayMenProducts();
-      const showSingleProduct = new ShowSingleProduct();
+      new ShowSingleProduct();
     }
   }
 

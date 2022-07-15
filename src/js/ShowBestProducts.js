@@ -17,7 +17,7 @@ class ShowBestProducts {
       p.addEventListener("click",(e)=>{
         e.preventDefault();
         this.getSingleProduct();
-        const showSingleProduct= new ShowSingleProduct();
+        new ShowSingleProduct();
       });
     });
 
