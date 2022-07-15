@@ -161,7 +161,7 @@ class Cart {
           (c) => c.id == subQuantity.dataset.id
         );
         if (substractedItem.quantity === 1) {
-          this.removeItem(substractedItem.id);
+          this.removeItem(substractedItem);
           cartContent.removeChild(
             subQuantity.parentElement.parentElement.parentElement
           );
