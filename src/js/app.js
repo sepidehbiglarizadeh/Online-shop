@@ -1,5 +1,6 @@
 import womenProducts from "../../client/pages/womenProducts.js";
 import menProducts from "../../client/pages/menProducts.js";
+import index from "../../client/pages/index.js";
 import ShowAllProducts from "./ShowAllProducts.js";
 import ShowSingleProduct from "./ShowSingleProduct.js";
 import Cart from "./Cart.js";
@@ -27,7 +28,11 @@ class App {
       };
     });
     let match = potentialRoutes.find((route) => route.isMatch);
-    if (match) document.querySelector(".main").innerHTML = match.route.view();
+    if (!match) {
+      match = { route: { path: "/", view: index }, isMatch: true, };
+    }
+    document.querySelector(".main").innerHTML = match.route.view();
+    
     if (match.route.path === "/womenProducts") {
       ShowAllProducts.displayWomenProducts();
       new ShowSingleProduct();
